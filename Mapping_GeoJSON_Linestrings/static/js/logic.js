@@ -30,17 +30,12 @@ L.control.layers(baseMaps).addTo(map);
 // Then we add our 'streets' tile layer to the map.
 light.addTo(map);
 
-
-// Accessing the airport GeoJSON URL
-let airportData = "https://raw.githubusercontent.com/melisavacca/Mapping_Earthquakes/main/majorAirports.json";
-
 //Accessing the Toronto airline routes GeoJSON URL.
 let torontoData = "https://raw.githubusercontent.com/<melisavacca>/Mapping_Earthquakes/main/torontoRoutes.json";
 
 // Grabbing our GeoJSON data.
-d3.json(airportData).then(function(data) {
-    console.log(data);
-  // Creating a GeoJSON layer with the retrieved data.
-  L.geoJson(data).addTo(map);
+d3.json(torontoData).then(function(data) {
+  console.log(data);
+// Creating a GeoJSON layer with the retrieved data.
+L.geoJson(data).addTo(map);
 });
-
