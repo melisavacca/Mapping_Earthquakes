@@ -111,16 +111,6 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   // Then we add the earthquake layer to our map.
   allEarthquakes.addTo(map);
 
-// Looping through our intervals to generate a label with a colored square for each interval.
-  for (var i = 0; i < magnitudes.length; i++) {
-    console.log(colors[i]);
-    div.innerHTML +=
-      "<i style='background: " + colors[i] + "'></i> " +
-      magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
-    }
-    return div;
-  });
-
   // 3. Retrieve the major earthquake GeoJSON data >4.5 mag for the week.
   d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson").then(function(data) {
     // 4. Use the same style as the earthquake data.
@@ -198,15 +188,27 @@ const colors = [
   "#ea2c2c"
 ];
 
-legend.addTo(map);
 
-//3. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
-  d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then((data) => {
-    console.log(data);
-    L.geoJson(data, {
-      style: {color: "#2D1FD8", weight: 4}
-    }).addTo(tectonicPlate);
-  });
-  // Add the tectonic layer group to the map.
-  tectonicPlate.addTo(map);
+// Looping through our intervals to generate a label with a colored square for each interval.
+for (var i = 0; i < magnitudes.length; i++) {
+  console.log(colors[i]);
+  div.innerHTML +=
+    "<i style='background: " + colors[i] + "'></i> " +
+    magnitudes[i] + (magnitudes[i + 1] ? "&ndash;" + magnitudes[i + 1] + "<br>" : "+");
+  }
+  return div;
+};
+
+  legend.addTo(map);
+
+    //3. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
+    d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then((data) => {
+      console.log(data);
+      L.geoJson(data, {
+        style: {color: "#2D1FD8", weight: 4}
+      }).addTo(tectonicPlate);
+
+    // Add the tectonic layer group to the map.
+    tectonicPlate.addTo(map);
+    });
 });
